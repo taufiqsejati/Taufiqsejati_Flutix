@@ -12,7 +12,7 @@ class AuthServices {
       User user = result.user.convertToUser(
           name: name,
           selectedGenre: selectedGenres,
-          SelectedLanguage: selectedLanguage);
+          selectedLanguage: selectedLanguage);
 
       await UserServices.updateUser(user);
 
@@ -38,6 +38,10 @@ class AuthServices {
 
   static Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  static Future<void> resetPassword(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 
   static Stream<FirebaseUser> get userStream => _auth.onAuthStateChanged;

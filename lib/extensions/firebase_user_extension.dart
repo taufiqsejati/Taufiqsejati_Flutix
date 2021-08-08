@@ -4,13 +4,13 @@ extension FirebaseUserExtension on FirebaseUser {
   User convertToUser(
           {String name = 'No Name',
           List<String> selectedGenre = const [],
-          String SelectedLanguage = 'English',
+          String selectedLanguage = 'English',
           int balance = 50000}) =>
       User(this.uid, this.email,
           name: name,
           balance: balance,
           selectedGenres: selectedGenre,
-          selectedLanguage: SelectedLanguage);
+          selectedLanguage: selectedLanguage);
 
   Future<User> fromFireStore() async => await UserServices.getUser(this.uid);
 }

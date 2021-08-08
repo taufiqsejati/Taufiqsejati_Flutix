@@ -1,6 +1,11 @@
 part of 'pages.dart';
 
 class MainPage extends StatefulWidget {
+  final int bottomNavBarIndex;
+  final bool isExpired;
+
+  MainPage({this.bottomNavBarIndex = 0, this.isExpired = false});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -14,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement initState
     super.initState();
 
-    bottomNavBarIndex = 0;
+    bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
 
@@ -39,7 +44,9 @@ class _MainPageState extends State<MainPage> {
           },
           children: [
             MoviePage(),
-            Center(child: Text('My Tickets')),
+            TicketPage(
+              isExpiredTicket: widget.isExpired,
+            ),
           ],
         ),
         createCustomBottomNavbar(),
@@ -52,8 +59,10 @@ class _MainPageState extends State<MainPage> {
             child: FloatingActionButton(
               onPressed: () {
                 // we
-                context.bloc<UserBloc>().add(SignOut());
-                AuthServices.signOut();
+                // context.bloc<UserBloc>().add(SignOut());
+                // AuthServices.signOut();
+
+                context.bloc<PageBloc>().add(GoToTopUpPage(GoToMainPage()));
               },
               elevation: 0,
               backgroundColor: accentColor2,

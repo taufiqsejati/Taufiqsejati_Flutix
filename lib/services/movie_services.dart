@@ -7,7 +7,7 @@ class MovieServices {
 
     client ??= http.Client();
 
-    var response = await client.get(url);
+    var response = await client.get(Uri.parse(url));
 
     if (response.statusCode != 200) {
       return [];
@@ -20,14 +20,23 @@ class MovieServices {
   }
 
   static Future<MovieDetail> getDetails(Movie movie,
-      {http.Client client}) async {
+      {int movieID, http.Client client}) async {
     String url =
-        "https://api.themoviedb.org/3/movie/${movie.id}?api_key=$apiKey&language=en-US";
+        "https://api.themoviedb.org/3/movie/${movieID ?? movie.id}?api_key=$apiKey&language=en-US";
 
     client ?? http.Client();
 
-    var response = await client.get(url);
-    var data = json.decode(response.body);
+    var response = await http.get(Uri.parse(url));
+
+    // print(response.statusCode);
+    // print(response.body);
+    // var logger = Logger();
+
+    var data = jsonDecode(response.body);
+    // var response = await client.get(url);
+    // var data = json.decode(response.body);
+    // logger.d("Logger is working1!", response.statusCode);
+    // logger.d("Logger is working2!", data);
 
     List genres = (data as Map<String, dynamic>)['genres'];
     String language;
@@ -47,11 +56,17 @@ class MovieServices {
         break;
     }
 
-    return MovieDetail(movie,
-        language: language,
-        genres: genres
-            .map((e) => (e as Map<String, dynamic>)['name'].toString())
-            .toList());
+    return movieID != null
+        ? MovieDetail(Movie.fromJson(data),
+            language: language,
+            genres: genres
+                .map((e) => (e as Map<String, dynamic>)['name'].toString())
+                .toList())
+        : MovieDetail(movie,
+            language: language,
+            genres: genres
+                .map((e) => (e as Map<String, dynamic>)['name'].toString())
+                .toList());
   }
 
   static Future<List<Credit>> getCredits(int movieID,
@@ -61,7 +76,7 @@ class MovieServices {
 
     client ??= http.Client();
 
-    var response = await client.get(url);
+    var response = await client.get(Uri.parse(url));
     var data = json.decode(response.body);
 
     return ((data as Map<String, dynamic>)['cast'] as List)

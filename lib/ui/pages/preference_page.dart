@@ -29,6 +29,7 @@ class _PreferencePageState extends State<PreferencePage> {
         context
             .bloc<PageBloc>()
             .add(GoToRegistrationPage(widget.registrationData));
+        return;
       },
       child: Scaffold(
         body: Container(

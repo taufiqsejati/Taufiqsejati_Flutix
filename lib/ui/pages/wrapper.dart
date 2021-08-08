@@ -13,6 +13,7 @@ class Wrapper extends StatelessWidget {
     } else {
       if (!(prevPageEvent is GoToMainPage)) {
         context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
+        context.bloc<TicketBloc>().add(GetTickets(firebaseUser.uid));
 
         prevPageEvent = GoToMainPage();
         context.bloc<PageBloc>().add(prevPageEvent);
@@ -33,6 +34,52 @@ class Wrapper extends StatelessWidget {
                                 pageState.registrationData)
                             : (pageState is OnMovieDetailPage)
                                 ? MovieDetailPage(pageState.movie)
-                                : MainPage());
+                                : (pageState is OnSelectSchedulePage)
+                                    ? SelectSchedulePage(pageState.movieDetail)
+                                    : (pageState is OnSelectSeatPage)
+                                        ? SelectSeatPage(pageState.ticket)
+                                        : (pageState is OnCheckoutPage)
+                                            ? CheckoutPage(pageState.ticket)
+                                            : (pageState is OnSuccessPage)
+                                                ? SuccessPage(pageState.ticket,
+                                                    pageState.transaction)
+                                                : (pageState
+                                                        is OnTicketDetailPage)
+                                                    ? TicketDetailPage(
+                                                        pageState.ticket)
+                                                    : (pageState
+                                                            is OnProfilePage)
+                                                        ? ProfilePage()
+                                                        : (pageState
+                                                                is OnTopUpPage)
+                                                            ? TopUpPage(
+                                                                pageState
+                                                                    .pageEvent)
+                                                            : (pageState
+                                                                    is OnWalletPage)
+                                                                ? WalletPage(
+                                                                    pageState
+                                                                        .pageEvent)
+                                                                : (pageState
+                                                                        is OnEditProfilePage)
+                                                                    ? EditProfilePage(
+                                                                        pageState
+                                                                            .user)
+                                                                    // : MainPage(
+                                                                    //     bottomNavBarIndex:
+                                                                    //         (pageState as OnMainPage).bottomNavBarIndex,
+                                                                    //     isExpired:
+                                                                    //         (pageState as OnMainPage).isExpired,
+                                                                    //   )
+
+                                                                    : (pageState
+                                                                            is OnMainPage)
+                                                                        ? MainPage(
+                                                                            bottomNavBarIndex:
+                                                                                pageState.bottomNavBarIndex,
+                                                                            isExpired:
+                                                                                pageState.isExpired,
+                                                                          )
+                                                                        : Container());
   }
 }

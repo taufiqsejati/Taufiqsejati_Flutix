@@ -5,7 +5,7 @@ class MoviePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        // note: HEADER
+        //NOTE - HEADER
         Container(
           decoration: BoxDecoration(
               color: accentColor1,
@@ -26,31 +26,37 @@ class MoviePage extends StatelessWidget {
                 }
                 return Row(
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border:
-                              Border.all(color: Color(0xff5F558B), width: 1)),
-                      child: Stack(
-                        children: [
-                          SpinKitFadingCircle(
-                            color: accentColor2,
-                            size: 50,
-                          ),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: (userState.user.profilePicture == ''
-                                        ? AssetImage('assets/user_pic.png')
-                                        : NetworkImage(
-                                            userState.user.profilePicture)))),
-                          )
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        context.bloc<PageBloc>().add(GoToProfilePage());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(color: Color(0xff5F558B), width: 1)),
+                        child: Stack(
+                          children: [
+                            SpinKitFadingCircle(
+                              color: accentColor2,
+                              size: 50,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: (userState.user.profilePicture ==
+                                              ''
+                                          ? AssetImage('assets/user_pic.png')
+                                          : NetworkImage(
+                                              userState.user.profilePicture)))),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -70,14 +76,21 @@ class MoviePage extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.clip),
                         ),
-                        Text(
-                            NumberFormat.currency(
-                                    locale: "id_ID",
-                                    decimalDigits: 0,
-                                    symbol: 'IDR ')
-                                .format(userState.user.balance),
-                            style: yellowNumberFont.copyWith(
-                                fontSize: 14, fontWeight: FontWeight.w400))
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .bloc<PageBloc>()
+                                .add(GoToWalletPage(GoToMainPage()));
+                          },
+                          child: Text(
+                              NumberFormat.currency(
+                                      locale: "id_ID",
+                                      decimalDigits: 0,
+                                      symbol: 'IDR ')
+                                  .format(userState.user.balance),
+                              style: yellowNumberFont.copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
+                        )
                       ],
                     )
                   ],
@@ -92,7 +105,7 @@ class MoviePage extends StatelessWidget {
           ),
         ),
 
-        // note : NOW PLAYING
+        // ANCHOR : NOW PLAYING
         Container(
           margin: EdgeInsets.fromLTRB(defaultMargin, 30, defaultMargin, 12),
           child: Text('Now Playing',
@@ -116,6 +129,9 @@ class MoviePage extends StatelessWidget {
                         child: MovieCard(
                           movies[index],
                           onTap: () {
+                            // var logger = Logger();
+
+                            // logger.d("Logger is working!", movies[index]);
                             context
                                 .bloc<PageBloc>()
                                 .add(GoToMovieDetailPage(movies[index]));
@@ -131,7 +147,7 @@ class MoviePage extends StatelessWidget {
           }),
         ),
 
-        // note : BROWSE MOVIE
+        // ANCHOR : BROWSE MOVIE
         Container(
           margin: EdgeInsets.fromLTRB(defaultMargin, 30, defaultMargin, 12),
           child: Text('Browse Movie',
@@ -158,7 +174,7 @@ class MoviePage extends StatelessWidget {
           }
         }),
 
-        // note : COMING SOON
+        // ANCHOR : COMING SOON
         Container(
           margin: EdgeInsets.fromLTRB(defaultMargin, 30, defaultMargin, 12),
           child: Text('Coming Soon',
@@ -190,7 +206,7 @@ class MoviePage extends StatelessWidget {
           }),
         ),
 
-        // note : GET LUCKY DAY
+        // ANCHOR : GET LUCKY DAY
         Container(
           margin: EdgeInsets.fromLTRB(defaultMargin, 30, defaultMargin, 12),
           child: Text('Get Lucky Day',
