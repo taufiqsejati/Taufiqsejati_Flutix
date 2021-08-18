@@ -13,6 +13,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     int total = 26500 * widget.ticket.seats.length;
+
     return WillPopScope(
       onWillPop: () async {
         context.bloc<PageBloc>().add(GoToSelectSeatPage(widget.ticket));
@@ -367,7 +368,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Total',
+                                  'Your Wallet',
                                   style: greyTextFont.copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,

@@ -98,6 +98,7 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                       ),
                       //NOTE - SEATS
                       generateSeats(),
+                      seatStatus(),
                       //NOTE - NEXT BUTTON
                       Align(
                           alignment: Alignment.topCenter,
@@ -170,5 +171,54 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
     return Column(
       children: widgets,
     );
+  }
+
+  Widget seatStatus() {
+    return Container(
+        margin: EdgeInsets.only(top: 23, bottom: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //NOTE - AVAILABLE
+            Container(
+              width: 16,
+              height: 16,
+              margin: EdgeInsets.only(right: 6),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/icon_available.png'))),
+            ),
+            Text(
+              'Available',
+              style: greyTextFont,
+            ),
+            //NOTE - SELECTED
+            Container(
+              width: 16,
+              height: 16,
+              margin: EdgeInsets.only(left: 10, right: 6),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/icon_selected.png'))),
+            ),
+            Text(
+              'Selected',
+              style: greyTextFont,
+            ),
+            //NOTE - Unavailable
+            Container(
+              width: 16,
+              height: 16,
+              margin: EdgeInsets.only(left: 10, right: 6),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/icon_unavailable.png'))),
+            ),
+            Text(
+              'Unavailable',
+              style: greyTextFont,
+            )
+          ],
+        ));
   }
 }
