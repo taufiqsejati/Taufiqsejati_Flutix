@@ -58,11 +58,12 @@ class OnAccountConfirmationPage extends PageState {
 
 class OnMovieDetailPage extends PageState {
   final Movie movie;
+  final bool isComingSoon;
 
-  OnMovieDetailPage(this.movie);
+  OnMovieDetailPage({this.movie, this.isComingSoon = false});
 
   @override
-  List<Object> get props => [movie];
+  List<Object> get props => [movie, isComingSoon];
 }
 
 class OnSelectSchedulePage extends PageState {

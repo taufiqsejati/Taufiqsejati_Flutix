@@ -410,9 +410,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
                                 child: Text(
-                                  user.balance >= total
-                                      ? "Checkout Now"
-                                      : "Top Up My Wallet",
+                                  "Checkout Now",
                                   style: whiteTextFont.copyWith(fontSize: 16),
                                 ),
                                 onPressed: () {
@@ -437,6 +435,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                             transaction));
                                   } else {
                                     //NOTE - Uang Tidak Cukup
+                                    Flushbar(
+                                      duration: Duration(seconds: 4),
+                                      flushbarPosition: FlushbarPosition.TOP,
+                                      backgroundColor: Color(0xFFFF5C83),
+                                      message:
+                                          'Saldo tidak Cukup, Silahkan Topup terlebih dahulu.',
+                                    )..show(context);
                                   }
                                 }),
                           )

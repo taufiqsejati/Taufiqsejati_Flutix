@@ -30,7 +30,9 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.bloc<PageBloc>().add(GoToMovieDetailPage(widget.movieDetail));
+        context
+            .bloc<PageBloc>()
+            .add(GoToMovieDetailPage(movie: widget.movieDetail));
 
         return;
       },
@@ -55,7 +57,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                     onTap: () {
                       context
                           .bloc<PageBloc>()
-                          .add(GoToMovieDetailPage(widget.movieDetail));
+                          .add(GoToMovieDetailPage(movie: widget.movieDetail));
                     },
                     child: Icon(
                       Icons.arrow_back,

@@ -253,8 +253,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           if (profileImageFile != null) {
                                             profilePath = await uploadImage(
                                                 profileImageFile);
+                                            //  profilePath =
+                                            // 'https://firebasestorage.googleapis.com/v0/b/taufiq-flutix.appspot.com/o/vaneshaass-20210917-0001.jpg?alt=media&token=7aa35b3f-4f01-4793-8dc6-b752a0d54434';
                                           }
-
+                                          var logger = Logger();
+                                          logger.d(
+                                              "Logger is Edit Profile!${profileImageFile}");
+                                          logger.d(
+                                              "Logger is Edit Profile2!${profilePath}");
                                           context.bloc<UserBloc>().add(
                                               UpdateData(
                                                   name: nameController.text,

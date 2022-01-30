@@ -9,4 +9,3 @@ class TicketState extends Equatable {
   // TODO: implement props
   List<Object> get props => [tickets];
 }
-

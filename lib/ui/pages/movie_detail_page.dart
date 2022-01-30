@@ -1,9 +1,22 @@
 part of 'pages.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final Movie movie;
+  final bool isComingSoon;
+  MovieDetailPage({this.movie, this.isComingSoon = false});
 
-  MovieDetailPage(this.movie);
+  @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  bool isComingSoon;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isComingSoon = widget.isComingSoon;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +37,7 @@ class MovieDetailPage extends StatelessWidget {
                 color: Colors.white,
                 child: ListView(children: [
                   FutureBuilder(
-                      future: MovieServices.getDetails(movie),
+                      future: MovieServices.getDetails(widget.movie),
                       builder: (_, snapshot) {
                         if (snapshot.hasData) {
                           movieDetail = snapshot.data;
@@ -43,8 +56,9 @@ class MovieDetailPage extends StatelessWidget {
                                           image: DecorationImage(
                                               image: NetworkImage(imageBaseURL +
                                                       "w1280" +
-                                                      movie.backdropPath ??
-                                                  movie.posterPath),
+                                                      widget
+                                                          .movie.backdropPath ??
+                                                  widget.movie.posterPath),
                                               fit: BoxFit.cover)),
                                     ),
                                     Container(
@@ -88,7 +102,7 @@ class MovieDetailPage extends StatelessWidget {
                               margin: EdgeInsets.fromLTRB(
                                   defaultMargin, 16, defaultMargin, 6),
                               child: Text(
-                                movie.title,
+                                widget.movie.title,
                                 textAlign: TextAlign.center,
                                 style: blackTextFont.copyWith(fontSize: 24),
                               ),
@@ -113,7 +127,7 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                             //NOTE - RATING
                             RatingStars(
-                              voteAverage: movie.voteAverage,
+                              voteAverage: widget.movie.voteAverage,
                               color: accentColor3,
                               alignment: MainAxisAlignment.center,
                             ),
@@ -132,7 +146,8 @@ class MovieDetailPage extends StatelessWidget {
                                   )),
                             ),
                             FutureBuilder(
-                                future: MovieServices.getCredits(movie.id),
+                                future:
+                                    MovieServices.getCredits(widget.movie.id),
                                 builder: (_, snapshot) {
                                   if (snapshot.hasData) {
                                     credits = snapshot.data;
@@ -177,7 +192,7 @@ class MovieDetailPage extends StatelessWidget {
                               margin: EdgeInsets.fromLTRB(
                                   defaultMargin, 0, defaultMargin, 30),
                               child: Text(
-                                movie.overview,
+                                widget.movie.overview,
                                 style: greyTextFont.copyWith(
                                     fontWeight: FontWeight.w400),
                               ),
@@ -193,11 +208,17 @@ class MovieDetailPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   var logger = Logger();
-
-                                  logger.d("Logger is working!", movieDetail);
-                                  context
-                                      .bloc<PageBloc>()
-                                      .add(GoToSelectSchedulePage(movieDetail));
+                                  if (widget.isComingSoon) {
+                                    Flushbar(
+                                      duration: Duration(seconds: 4),
+                                      flushbarPosition: FlushbarPosition.TOP,
+                                      backgroundColor: Color(0xFFFF5C83),
+                                      message: "Coming Soon..",
+                                    )..show(context);
+                                  } else {
+                                    context.bloc<PageBloc>().add(
+                                        GoToSelectSchedulePage(movieDetail));
+                                  }
                                 }),
                             SizedBox(height: defaultMargin)
                           ],

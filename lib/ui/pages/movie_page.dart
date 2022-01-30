@@ -134,7 +134,7 @@ class MoviePage extends StatelessWidget {
                             // logger.d("Logger is working!", movies[index]);
                             context
                                 .bloc<PageBloc>()
-                                .add(GoToMovieDetailPage(movies[index]));
+                                .add(GoToMovieDetailPage(movie: movies[index]));
                           },
                         ),
                       ));
@@ -195,7 +195,16 @@ class MoviePage extends StatelessWidget {
                             right: (index == movies.length - 1)
                                 ? defaultMargin
                                 : 16),
-                        child: ComingSoonCard(movies[index]),
+                        child: ComingSoonCard(
+                          movies[index],
+                          onTap: () {
+                            // var logger = Logger();
+
+                            // logger.d("Logger is working!", movies[index]);
+                            context.bloc<PageBloc>().add(GoToMovieDetailPage(
+                                movie: movies[index], isComingSoon: true));
+                          },
+                        ),
                       ));
             } else {
               return SpinKitFadingCircle(

@@ -37,6 +37,26 @@ class Ticket extends Equatable {
     return s;
   }
 
+  // factory Ticket.fromJson(MovieDetail movieDetail, Map<String, dynamic> json) =>
+  //     Ticket(
+  //         movieDetail,
+  //         Theater(json['movieDetail']),
+  //         DateTime.fromMillisecondsSinceEpoch(json['time']),
+  //         json['bookingCode'],
+  //         json['seats'].toString().split(','),
+  //         json['name'],
+  //         json['totalPrice']);
+
+  // Map<String, dynamic> toJson() => {
+  //       'movieDetail': movieDetail,
+  //       'theater': theater,
+  //       'time': time,
+  //       'bookingCode': bookingCode,
+  //       'seats': seats,
+  //       'name': name,
+  //       'totalPrice': totalPrice,
+  //     };
+
   @override
   // TODO: implement props
   List<Object> get props =>

@@ -23,12 +23,13 @@ class WalletPage extends StatelessWidget {
             //NOTE - CONTENT
             SafeArea(
               child: Container(
-                margin: EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 0),
+                // margin: EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 0),
                 child: ListView(
                   children: [
                     Stack(children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(
+                            top: 20, left: defaultMargin, right: defaultMargin),
                         child: GestureDetector(
                           onTap: () {
                             context.bloc<PageBloc>().add(pageEvent);
@@ -36,181 +37,187 @@ class WalletPage extends StatelessWidget {
                           child: Icon(Icons.arrow_back, color: Colors.black),
                         ),
                       ),
-                      BlocBuilder<UserBloc, UserState>(
-                        builder: (_, userState) => Column(
-                          children: [
-                            SizedBox(height: 20),
-                            Text('My Wallet',
-                                style: blackTextFont.copyWith(fontSize: 20)),
-                            //NOTE - ID CARD
-                            Container(
-                              height: 185,
-                              width: double.infinity,
-                              margin: EdgeInsets.symmetric(vertical: 20),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Color(0xff382A74),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 10,
-                                        spreadRadius: 0,
-                                        offset: Offset(0, 5))
-                                  ]),
-                              child: Stack(
-                                children: [
-                                  ClipPath(
-                                    clipper: CardReflectionClipper(),
-                                    child: Container(
-                                        height: 185,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            gradient: LinearGradient(
-                                                begin: Alignment.bottomRight,
-                                                end: Alignment.topLeft,
-                                                colors: [
-                                                  Colors.white.withOpacity(0.1),
-                                                  Colors.white.withOpacity(0)
-                                                ]))),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(children: [
-                                          Container(
-                                              height: 18,
-                                              width: 18,
-                                              margin: EdgeInsets.only(right: 4),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Color(0xffFFF2CB))),
-                                          Container(
-                                              height: 30,
-                                              width: 30,
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: accentColor2))
-                                        ]),
-                                        Text(
-                                            NumberFormat.currency(
-                                              locale: 'id_ID',
-                                              symbol: 'IDR ',
-                                              decimalDigits: 0,
-                                            ).format(
-                                              (userState as UserLoaded)
-                                                  .user
-                                                  .balance,
-                                            ),
-                                            style: whiteNumberFont.copyWith(
-                                                fontSize: 28,
-                                                fontWeight: FontWeight.w600)),
-                                        Row(
-                                          children: [
-                                            Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Card Holder',
-                                                    style:
-                                                        whiteTextFont.copyWith(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w300),
-                                                  ),
-                                                  Row(children: [
-                                                    Text(
-                                                        (userState
-                                                                as UserLoaded)
-                                                            .user
-                                                            .name,
-                                                        style: whiteTextFont
-                                                            .copyWith(
-                                                          fontSize: 12,
-                                                        )),
-                                                    SizedBox(width: 4),
-                                                    SizedBox(
-                                                        height: 14,
-                                                        width: 14,
-                                                        child: Image.asset(
-                                                            'assets/ic_check.png'))
-                                                  ])
-                                                ]),
-                                            SizedBox(width: 30),
-                                            Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Card ID',
-                                                    style:
-                                                        whiteTextFont.copyWith(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w300),
-                                                  ),
-                                                  Row(children: [
-                                                    Text(
-                                                        (userState
-                                                                as UserLoaded)
-                                                            .user
-                                                            .id
-                                                            .substring(0, 10)
-                                                            .toUpperCase(),
-                                                        style: whiteNumberFont
-                                                            .copyWith(
-                                                          fontSize: 12,
-                                                        )),
-                                                    SizedBox(width: 4),
-                                                    SizedBox(
-                                                        height: 14,
-                                                        width: 14,
-                                                        child: Image.asset(
-                                                            'assets/ic_check.png'))
-                                                  ])
-                                                ]),
-                                          ],
-                                        )
-                                      ],
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultMargin),
+                        child: BlocBuilder<UserBloc, UserState>(
+                          builder: (_, userState) => Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text('My Wallet',
+                                  style: blackTextFont.copyWith(fontSize: 20)),
+                              //NOTE - ID CARD
+                              Container(
+                                height: 185,
+                                width: double.infinity,
+                                margin: EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Color(0xff382A74),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black,
+                                          blurRadius: 10,
+                                          spreadRadius: 0,
+                                          offset: Offset(0, 5))
+                                    ]),
+                                child: Stack(
+                                  children: [
+                                    ClipPath(
+                                      clipper: CardReflectionClipper(),
+                                      child: Container(
+                                          height: 185,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.bottomRight,
+                                                  end: Alignment.topLeft,
+                                                  colors: [
+                                                    Colors.white
+                                                        .withOpacity(0.1),
+                                                    Colors.white.withOpacity(0)
+                                                  ]))),
                                     ),
-                                  )
-                                ],
+                                    Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(children: [
+                                            Container(
+                                                height: 18,
+                                                width: 18,
+                                                margin:
+                                                    EdgeInsets.only(right: 4),
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffFFF2CB))),
+                                            Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: accentColor2))
+                                          ]),
+                                          Text(
+                                              NumberFormat.currency(
+                                                locale: 'id_ID',
+                                                symbol: 'IDR ',
+                                                decimalDigits: 0,
+                                              ).format(
+                                                (userState as UserLoaded)
+                                                    .user
+                                                    .balance,
+                                              ),
+                                              style: whiteNumberFont.copyWith(
+                                                  fontSize: 28,
+                                                  fontWeight: FontWeight.w600)),
+                                          Row(
+                                            children: [
+                                              Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Card Holder',
+                                                      style: whiteTextFont
+                                                          .copyWith(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                    ),
+                                                    Row(children: [
+                                                      Text(
+                                                          (userState
+                                                                  as UserLoaded)
+                                                              .user
+                                                              .name,
+                                                          style: whiteTextFont
+                                                              .copyWith(
+                                                            fontSize: 12,
+                                                          )),
+                                                      SizedBox(width: 4),
+                                                      SizedBox(
+                                                          height: 14,
+                                                          width: 14,
+                                                          child: Image.asset(
+                                                              'assets/ic_check.png'))
+                                                    ])
+                                                  ]),
+                                              SizedBox(width: 30),
+                                              Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Card ID',
+                                                      style: whiteTextFont
+                                                          .copyWith(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                    ),
+                                                    Row(children: [
+                                                      Text(
+                                                          (userState
+                                                                  as UserLoaded)
+                                                              .user
+                                                              .id
+                                                              .substring(0, 10)
+                                                              .toUpperCase(),
+                                                          style: whiteNumberFont
+                                                              .copyWith(
+                                                            fontSize: 12,
+                                                          )),
+                                                      SizedBox(width: 4),
+                                                      SizedBox(
+                                                          height: 14,
+                                                          width: 14,
+                                                          child: Image.asset(
+                                                              'assets/ic_check.png'))
+                                                    ])
+                                                  ]),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Recent Transaction',
-                                style: blackTextFont,
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Recent Transaction',
+                                  style: blackTextFont,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 12),
-                            FutureBuilder(
-                                future:
-                                    FlutixTransactionServices.getTransaction(
-                                        (userState as UserLoaded).user.id),
-                                builder: (_, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return generateTransactionList(
-                                        snapshot.data,
-                                        MediaQuery.of(context).size.width -
-                                            2 * defaultMargin);
-                                  } else {
-                                    return SpinKitFadingCircle(
-                                        size: 50, color: mainColor);
-                                  }
-                                }),
-                            SizedBox(height: 75),
-                          ],
+                              SizedBox(height: 12),
+                              FutureBuilder(
+                                  future:
+                                      FlutixTransactionServices.getTransaction(
+                                          (userState as UserLoaded).user.id),
+                                  builder: (_, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return generateTransactionList(
+                                          snapshot.data,
+                                          MediaQuery.of(context).size.width -
+                                              2 * defaultMargin);
+                                    } else {
+                                      return SpinKitFadingCircle(
+                                          size: 50, color: mainColor);
+                                    }
+                                  }),
+                              SizedBox(height: 75),
+                            ],
+                          ),
                         ),
                       )
                     ])
