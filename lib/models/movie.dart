@@ -19,7 +19,7 @@ class Movie extends Equatable {
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
       id: json['id'],
       title: json['title'],
-      voteAverage: json['vote_average'],
+      voteAverage: json['vote_average'].toDouble(),
       overview: json['overview'],
       posterPath: json['poster_path'],
       backdropPath: json['backdrop_path']);
@@ -27,7 +27,7 @@ class Movie extends Equatable {
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
-        'voteAverage': (voteAverage as num).toDouble(),
+        'voteAverage': voteAverage,
         'overview': overview,
         'posterPath': posterPath,
         'backdropPath': backdropPath,
