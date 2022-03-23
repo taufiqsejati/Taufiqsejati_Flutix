@@ -107,9 +107,10 @@ class _MainPageState extends State<MainPage> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      title: Text('New Movies',
-                          style: GoogleFonts.raleway(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      // title: Text('New Movies',
+                      //     style: GoogleFonts.raleway(
+                      //         fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: 'New Movies',
                       icon: Container(
                           margin: EdgeInsets.only(
                             bottom: 6,
@@ -119,9 +120,10 @@ class _MainPageState extends State<MainPage> {
                               ? 'assets/ic_movie.png'
                               : 'assets/ic_movie_grey.png'))),
                   BottomNavigationBarItem(
-                      title: Text('My Tickets',
-                          style: GoogleFonts.raleway(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      // title: Text('My Tickets',
+                      //     style: GoogleFonts.raleway(
+                      //         fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: 'My Tickets',
                       icon: Container(
                           margin: EdgeInsets.only(
                             bottom: 6,
